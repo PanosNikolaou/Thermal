@@ -65,9 +65,7 @@ for file in myfileList:
             continue
 
         bfname = between(file, "/", ".")
-                 
-        #print(bfname)
-        
+                         
         fname = "./split/images/" + str(band) + "-" + bfname + ".tif"
         sname = "./split/csv/" + str(band) + "-" + bfname + ".csv"
         
