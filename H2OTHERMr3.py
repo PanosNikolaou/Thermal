@@ -174,17 +174,6 @@ THRscaler = THRscaler.fit(THRvalues)
 normalized = THRscaler.transform(THRvalues)
 bands_list.THERMAL = normalized
 
-#################################################
-#NIRseries = Series(bands_list.THERMAL)
-#NIRvalues = NIRseries.values
-#NIRvalues = NIRvalues.reshape((len(NIRvalues), 1))
-#NIRscaler = MinMaxScaler(feature_range=(0, 100))
-#NIRscaler = NIRscaler.fit(NIRvalues)
-#NIRnormalized = NIRscaler.transform(NIRvalues)
-#bands_list.NIR = NIRnormalized
-#################################################
-
-
 import h2o
 from h2o.estimators import H2ODeepLearningEstimator
 
@@ -193,8 +182,6 @@ h2o.init()
 h2o.cluster().show_status()
 
 data = h2o.H2OFrame(bands_list)
-#print(data.as_data_frame())
-
 
 splits = data.split_frame(ratios=[0.7, 0.15], seed=1)  
 
@@ -204,27 +191,6 @@ test  = splits[2]
 
 nfolds = 10
 fold_assignment = 'Random'
-
-#For Regression problems:
-#
-#    A Gaussian distribution is the function for continuous targets.
-#    A Poisson distribution is used for estimating counts.
-#    A Gamma distribution is used for estimating total values (such as claim payouts, rainfall, etc.).
-#    A Tweedie distribution is used for estimating densities.
-#    A Laplacian loss function (absolute L1-loss function) can predict the median percentile.
-#    A Quantile regression loss function can predict a specified percentile.
-#    A Huber loss function, a combination of squared error and absolute error, is more robust to outliers than L2 squared-loss function.
-
-# next Gamma
-
-#activation function (Tanh, Tanh with dropout, Rectifier, Rectifier with dropout, Maxout, Maxout with dropout).
-
-#hidden_dropout_ratios: (Applicable only if the activation type is TanhWithDropout, RectifierWithDropout, or MaxoutWithDropout) Specify the hidden layer dropout ratio to improve generalization. 
-#Specify one value per hidden layer. The range is >= 0 to <1, and the default is 0.5.
-
-#l1: Specify the L1 regularization to add stability and improve generalization; sets the value of many weights to 0.
-#
-#l2: Specify the L2 regularization to add stability and improve generalization; sets the value of many weights to smaller values.
 
 model = H2ODeepLearningEstimator(distribution='Gaussian',
                                    standardize = True,
@@ -236,27 +202,6 @@ model = H2ODeepLearningEstimator(distribution='Gaussian',
 	                               nfolds=nfolds,
 	                               fold_assignment=fold_assignment,
                                    keep_cross_validation_predictions=True)
-
-#             PREDICTIONS      TEST
-#PREDICTIONS     1.000000  0.367742
-#TEST            0.367742  1.000000
-##
-#variable    relative_importance    scaled_importance    percentage
-#----------  ---------------------  -------------------  ------------
-#NVDI        1                      1                    0.324792
-#SLOPE       0.368962               0.368962             0.119836
-#NDSM        0.312297               0.312297             0.101432
-#ROUGHNESS   0.190196               0.190196             0.0617742
-#SEQRED      0.18928                0.18928              0.0614766
-#SEQGREEN    0.16418                0.16418              0.0533243
-#SEQREDEDGE  0.122736               0.122736             0.0398637
-#NIR         0.120583               0.120583             0.0391645
-#GREEN       0.117622               0.117622             0.0382027
-#GNDVI       0.111782               0.111782             0.0363059
-#RENVDI      0.10294                0.10294              0.0334341
-#BLUE        0.0961154              0.0961154            0.0312175
-#TPI         0.0924823              0.0924823            0.0300375
-#RED         0.0897192              0.0897192            0.0291401
 
 model.train(y="THERMAL", x=['BLUE', 'GREEN', 'RED', 'SEQGREEN', 'SEQRED', 'SEQREDEDGE', 'NIR','GNDVI', 'NVDI','RENVDI','NDSM','SLOPE','TPI','ROUGHNESS' ],training_frame=train,validation_frame = test)
 
