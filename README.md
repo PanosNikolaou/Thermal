@@ -1,2 +1,2 @@
 # Thermal
-Thermal Band Prediction by Deep Neural Netowrks
+Thermal Band Prediction with Deep Neural Networks
