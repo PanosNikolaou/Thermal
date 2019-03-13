@@ -1,17 +1,10 @@
-#!/usr/bin/env python2
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Dec 10 13:43:31 2018
-
-@author: takis
-"""
-
 from __future__ import division
-import pandas as pd
-from numpy import genfromtxt
-import matplotlib.pyplot as plt
 
 import glob
+
+import matplotlib.pyplot as plt
+import pandas as pd
+from numpy import genfromtxt
 
 THRlist = []
 BLUElist = []
