@@ -1,12 +1,11 @@
 from __future__ import division
+
+import os
 import sys
+
 import gdal
 import numpy as np
 import pandas as pd
-import os
-
-# these are the changes
-# and these are the second set of changes
 
 fileList =[]
 
