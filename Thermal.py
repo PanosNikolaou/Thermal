@@ -37,6 +37,7 @@ print("2_cv loaded")
 for file_ in glob.glob('split/csv/3-*.csv'):
     sdata = genfromtxt(file_, delimiter=',')
     GREENlist.extend(sdata.ravel())    
+	
 
 print("3_cv loaded")
     
