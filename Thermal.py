@@ -187,7 +187,7 @@ nfolds = 10
 fold_assignment = 'Random'
 
 model = H2ODeepLearningEstimator(distribution='Gaussian',
-                                   standardize = True,
+                                       standardize = True,
 	                               activation='Rectifier', 
 	                               hidden=[200,200,200],
 	                               l1=1e-5,
@@ -195,7 +195,7 @@ model = H2ODeepLearningEstimator(distribution='Gaussian',
 	                               epochs=10,
 	                               nfolds=nfolds,
 	                               fold_assignment=fold_assignment,
-                                   keep_cross_validation_predictions=True)
+                                       keep_cross_validation_predictions=True)
 
 model.train(y="THERMAL", x=['BLUE', 'GREEN', 'RED', 'SEQGREEN', 'SEQRED', 'SEQREDEDGE', 'NIR','GNDVI', 'NVDI','RENVDI','NDSM','SLOPE','TPI','ROUGHNESS' ],training_frame=train,validation_frame = test)
 
